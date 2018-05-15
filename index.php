@@ -3,8 +3,8 @@
     session_start();
 
     //setting a cookie
-    $sessionID = session_id(); //storing session id
-
+ //   $sessionID = session_id(); //storing session id
+    $_SESSION['sessionId']=session_id(); //storing session id
 //check token already generated or not
 if(empty($_SESSION['tokenkey']))
 {
@@ -17,7 +17,7 @@ if(empty($_SESSION['tokenkey']))
 $token = sha1( $_SESSION['tokenkey']. $_SESSION['sessionId'].'IT16128200' );
     
 
-setcookie("session_id",$sessionID,time()+3600,"/","localhost",false,true); //cookie terminates after 1 hour - HTTP only flag
+setcookie("session_id",$_SESSION['sessionId'],time()+3600,"/","localhost",false,true); //cookie terminates after 1 hour - HTTP only flag
 setcookie("csrf_token",$token,time()+3600,"/","localhost",false,true); //csrf token cookie
 
 
@@ -400,16 +400,6 @@ a{
       </div>
     </div>
   </div>
-  <?php 
-        //Check if the session-id cookie is set,
-       if(isset($_COOKIE['session_id']))
-            { 
-                //get the csrf token and set it in the hidden field
-                echo '<script> var token = onLoad();  </script>'; 
-                   
-                  
-            }
-    ?>
 
 </body>
 </html>
